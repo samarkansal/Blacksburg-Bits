@@ -64,7 +64,7 @@ footer {
       <ul>
         <h4>Visit</h4>
         <li>
-          <router-link to="https://goo.gl/maps/jQavNBvXGRFWjjrr6"
+          <router-link to="/"
             >560 Drillfield Dr<br />Blacksburg VA <br />24061</router-link
           >
         </li>
