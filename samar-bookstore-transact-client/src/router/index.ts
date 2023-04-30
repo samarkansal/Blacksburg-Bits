@@ -4,7 +4,9 @@ import CategoryView from "@/views/CategoryView.vue";
 import CartView from "@/views/CartView.vue";
 import CheckoutView from "@/views/CheckoutView.vue";
 import ConfirmationView from "@/views/ConfirmationView.vue";
+import NotFoundView from "@/views/NotFoundView.vue";
 import { useBookStore } from "@/stores/book";
+import { useCategoryStore } from "@/stores/category";
 const router = createRouter({
   scrollBehavior() {
     // always scroll to top
@@ -13,9 +15,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: "/home",
+      name: "home-view",
       component: HomeView,
+      alias: ["/", "/index.html"],
     },
     {
       path: "/category/:name?",
@@ -23,10 +26,17 @@ const router = createRouter({
       component: CategoryView,
       beforeEnter: async (to, from, next) => {
         const bookStore = useBookStore();
+        const categoryStore = useCategoryStore();
+        const categoryList = await categoryStore.getCategoryList();
         const category =
-          to.params.name || bookStore.currentCategory || "sci-fi";
+          categoryList
+            ?.find((category) => category.name.toLowerCase() === to.params.name)
+            ?.name.toLowerCase() ||
+          bookStore.currentCategory ||
+          "sci-fi";
+        console.log(category);
         //to.params.name = category; // this won't update the browser url
-        if (to.params.name) next(); // to avoid infinite route loop
+        if (category == to.params.name) next(); // to avoid infinite route loop
         else
           next({
             name: "category-view",
@@ -50,6 +60,7 @@ const router = createRouter({
       name: "confirmation-view",
       component: ConfirmationView,
     },
+    { path: "/:pathMatch(.*)*", name: "not-found", component: NotFoundView },
   ],
 });
 

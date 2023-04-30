@@ -11,11 +11,11 @@ export const useBookStore = defineStore("book", {
   actions: {
     async fetchBooks(categoryName: string) {
       const categoryStore = useCategoryStore();
+      const categoryList = await categoryStore.getCategoryList();
 
       const selectedCategoryName =
-        categoryStore.categoryList?.find(
-          (category) => category.name === categoryName
-        )?.name || categoryName;
+        categoryList?.find((category) => category.name === categoryName)
+          ?.name || categoryName;
 
       if (this.currentCategory !== selectedCategoryName) {
         this.bookList = await fetch(

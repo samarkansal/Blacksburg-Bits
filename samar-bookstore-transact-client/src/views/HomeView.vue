@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import TheHomeCategoryList from "@/components/TheHomeCategoryList.vue";
+import { useCategoryStore } from "@/stores/category";
+const categoryStore = useCategoryStore();
+await categoryStore.fetchCategories();
 </script>
 
 <style scoped>

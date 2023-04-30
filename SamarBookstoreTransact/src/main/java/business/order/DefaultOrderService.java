@@ -14,6 +14,7 @@ import business.customer.CustomerForm;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
@@ -89,7 +90,9 @@ public class DefaultOrderService implements OrderService {
 	private Date getDate(String monthString, String yearString) {
 		int month = Integer.parseInt(monthString);
 		int year = Integer.parseInt(yearString);
-		return new Date(year-1900, month-1, 1); // TODO Implement this correctly
+		YearMonth yearMonth = YearMonth.of(year, month);	 // Added now
+		LocalDate lastDayOfMonth = yearMonth.atEndOfMonth(); // Added now
+		return new Date(year-1900, month-1, 1); // earlier implementation
 	}
 
 	private long performPlaceOrderTransaction(
@@ -158,10 +161,10 @@ public class DefaultOrderService implements OrderService {
 		String ccExpiryMonth = customerForm.getCcExpiryMonth();
 		String ccExpiryYear = customerForm.getCcExpiryYear();
 		if (ccExpiryMonth == null || ccExpiryYear == null) {
-			throw new ApiException.ValidationFailure("ccNumber", "Please enter a valid expiration date");
+			throw new ApiException.ValidationFailure("Please enter a valid expiration date");
 		}
 		if (expiryDateIsInvalid(ccExpiryMonth, ccExpiryYear)) {
-			throw new ApiException.ValidationFailure(null, "Please enter a valid expiration date");
+			throw new ApiException.ValidationFailure("Please enter a valid expiration date");
 		}
 	}
 
@@ -174,7 +177,7 @@ public class DefaultOrderService implements OrderService {
 			YearMonth expiryDate = YearMonth.of(Integer.parseInt(ccExpiryYear), Integer.parseInt(ccExpiryMonth));
 			YearMonth currentDate = YearMonth.now();
 			return expiryDate.isBefore(currentDate);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | NullPointerException | DateTimeException ex) {
 			return true;
 		}
 

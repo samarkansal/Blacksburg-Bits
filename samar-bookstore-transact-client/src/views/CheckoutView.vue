@@ -119,7 +119,9 @@ async function submitOrder() {
 
       if ("error" in placeOrderResponse) {
         form.checkoutStatus = "SERVER_ERROR";
-        serverErrorMessage.value = placeOrderResponse.message;
+        serverErrorMessage.value = (
+          placeOrderResponse as ServerErrorResponse
+        ).message;
         console.log("Error placing order", placeOrderResponse);
       } else {
         form.checkoutStatus = "OK";
@@ -185,6 +187,14 @@ form > div > select {
   text-align: center;
   font-weight: 600;
   color: rgb(0, 111, 223);
+}
+
+.checkoutStatusBox > div {
+  margin-right: -2.5em;
+}
+
+.summary-box .checkoutStatusBox > div {
+  margin-right: 0;
 }
 
 .summary-box .checkoutStatusBox {
@@ -515,7 +525,7 @@ h2 {
                 Order placed...
               </div>
 
-              <div v-else>An unexpected error occurred, please try again.</div>
+              <div v-else>{{ serverErrorMessage }}</div>
             </section>
             <!-- <div class="item-actions">
             <router-link :to="{ name: 'category-view' }">
@@ -572,7 +582,7 @@ h2 {
 
             <div v-else-if="form.checkoutStatus === 'OK'">Order placed...</div>
 
-            <div v-else>An unexpected error occurred, please try again.</div>
+            <div v-else>{{ serverErrorMessage }}</div>
           </section>
         </div>
       </section>

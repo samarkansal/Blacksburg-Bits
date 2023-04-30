@@ -44,7 +44,7 @@ function bookImageUrl(imageFileName: String) {
 }
 
 .img-container {
-  opacity: 0.8;
+  opacity: 0.9;
   height: 200px;
   width: 100%;
   background-position: center center;

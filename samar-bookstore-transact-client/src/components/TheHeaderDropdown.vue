@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useCategoryStore } from "@/stores/category";
 const categoryStore = useCategoryStore();
+const categoryList = await categoryStore.getCategoryList();
 </script>
 
 <style scoped>
@@ -66,10 +67,7 @@ const categoryStore = useCategoryStore();
     </button>
     <div class="drop-cat"></div>
     <ul>
-      <li
-        v-for="category in categoryStore.categoryList"
-        :key="category.categoryId"
-      >
+      <li v-for="category in categoryList" :key="category.categoryId">
         <router-link :to="'/category/' + category.name.toLowerCase()">
           {{ category.name }}
         </router-link>

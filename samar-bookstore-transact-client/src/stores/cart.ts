@@ -5,6 +5,7 @@ import type {
   ServerErrorResponse,
   CustomerForm,
 } from "@/types";
+import { useOrderDetailsStore } from "@/stores/orderDetails";
 import { apiUrl } from "@/api";
 import { ShoppingCart } from "@/types";
 
@@ -46,6 +47,8 @@ export const useCartStore = defineStore("CartStore", {
     async placeOrder(
       customerForm: CustomerForm
     ): Promise<OrderDetails | ServerErrorResponse> {
+      const orderDetailsStore = useOrderDetailsStore();
+      orderDetailsStore.clearOrderDetails();
       const order = { cart: this.cart, customerForm: customerForm };
       console.log(JSON.stringify(order));
 
@@ -67,6 +70,7 @@ export const useCartStore = defineStore("CartStore", {
 
       if (response.ok) {
         this.clearCart();
+        orderDetailsStore.setOrderDetails(placeOrderResponse as OrderDetails);
       }
       return placeOrderResponse;
     },

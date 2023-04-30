@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useCategoryStore } from "@/stores/category";
+import type { CategoryItem } from "@/types";
 const categoryStore = useCategoryStore();
+const categoryList = (await categoryStore.getCategoryList()) as CategoryItem[];
 
 function bookImageUrl(imageFileName: String) {
   return new URL(
@@ -98,7 +100,7 @@ a {
   <div class="nav-cat">
     <div
       class="cat-cont"
-      v-for="category in categoryStore.categoryList"
+      v-for="category in categoryList"
       :key="category.categoryId"
     >
       <router-link

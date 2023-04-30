@@ -144,10 +144,25 @@ export interface Order {
   customerId: number;
 }
 
+export interface LineItem {
+  bookId: number;
+  orderId: number;
+  quantity: number;
+}
+export interface Customer {
+  customerName: string;
+  address: string;
+  phone: string;
+  email: string;
+  ccNumber: string;
+  ccExpDate: number;
+}
+
 export interface OrderDetails {
   order: Order;
-  customer: CustomerForm;
+  customer: Customer;
   books: BookItem[];
+  lineItems: LineItem[];
 }
 
 export interface ServerErrorResponse {

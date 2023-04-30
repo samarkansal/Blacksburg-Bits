@@ -145,7 +145,7 @@ public class ApiResource {
             if (orderId > 0) {
                 return orderService.getOrderDetails(orderId);
             } else {
-                throw new ApiException.ValidationFailure("Unknown error occurred");
+                throw new ApiException.ValidationFailure("order placement failed");
             }
 
 			// NOTE: MORE CODE PROVIDED NEXT PROJECT
@@ -154,7 +154,7 @@ public class ApiResource {
 			// NOTE: all validation errors go through here
 			throw e;
 		} catch (Exception e) {
-			throw new ApiException("order placement failed", e);
+			throw new ApiException("Unknown error occurred", e);
 		}
 	}
 
