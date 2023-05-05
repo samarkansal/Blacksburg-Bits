@@ -1,0 +1,78 @@
+{
+  "categories": [
+    {
+      "categoryId": 1001,
+      "name": "Sci-Fi"
+    },
+    {
+      "categoryId": 1002,
+      "name": "Sports"
+    },
+    {
+      "categoryId": 1003,
+      "name": "Romance"
+    },
+    {
+      "categoryId": 1004,
+      "name": "Business"
+    }
+  ],
+  "books": [
+    {
+      "bookId": 1001,
+      "title": "Batman 89",
+      "author": "Sam Hamm",
+      "price": 1687,
+      "isPublic": false,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1002,
+      "title": "The One",
+      "author": "John Marrs",
+      "price": 1427,
+      "isPublic": true,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1003,
+      "title": "Fight Club",
+      "author": "Chuck Palaniuk",
+      "price": 1595,
+      "isPublic": false,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1004,
+      "title": "Severance",
+      "author": "Ling Ma",
+      "price": 1827,
+      "isPublic": false,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1005,
+      "title": "Golden Son",
+      "author": "Pierce Brown",
+      "price": 1191,
+      "isPublic": false,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1006,
+      "title": "The Stand",
+      "author": "Stephen King",
+      "price": 1550,
+      "isPublic": true,
+      "categoryId": 1001
+    },
+    {
+      "bookId": 1007,
+      "title": "Cinder",
+      "author": "Marissa Meye",
+      "price": 750,
+      "isPublic": false,
+      "categoryId": 1001
+    }
+  ]
+}
